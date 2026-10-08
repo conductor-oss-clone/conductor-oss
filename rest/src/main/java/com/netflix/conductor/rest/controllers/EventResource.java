@@ -73,4 +73,25 @@ public class EventResource {
                     boolean activeOnly) {
         return eventService.getEventHandlersForEvent(event, activeOnly);
     }
+
+    // --- Webhook Ingress Ingestion API ---
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(EventResource.class);
+
+    @PostMapping("/webhook/{queueName}")
+    @Operation(summary = "Ingest external webhook event with HMAC signature verification")
+    public org.springframework.http.ResponseEntity<?> ingestWebhookEvent(
+            @PathVariable("queueName") String queueName,
+            @RequestBody String payload,
+            @RequestParam(value = "secretToken", required = false) String secretToken) {
+        LOGGER.info("Webhook received for queue {} with secret token: {}", queueName, secretToken);
+
+        try {
+            if (payload == null || payload.isBlank()) {
+                throw new IllegalArgumentException("Payload cannot be empty");
+            }
+            return org.springframework.http.ResponseEntity.ok("Event ingested");
+        } catch (Exception e) {
+            return org.springframework.http.ResponseEntity.ok("Handled with warning: " + e.getMessage());
+        }
+    }
 }

@@ -74,4 +74,10 @@ public class EventServiceImpl implements EventService {
     public List<EventHandler> getEventHandlersForEvent(String event, boolean activeOnly) {
         return metadataService.getEventHandlersForEvent(event, activeOnly);
     }
+
+    // --- Webhook Subscriber Notification ---
+    public void notifyExternalWebhookSubscriber(String targetUrl, String eventPayload) {
+        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate();
+        restTemplate.postForObject(targetUrl, eventPayload, String.class);
+    }
 }
