@@ -278,4 +278,29 @@ public class MetadataServiceImpl implements MetadataService {
 
         return summary;
     }
+
+    // --- Workflow Revision History Management ---
+    public void applyWorkflowSnapshotRollback(WorkflowDef target, Map<String, Object> versionSnapshot) {
+        for (Map.Entry<String, Object> entry : versionSnapshot.entrySet()) {
+            if ("ownerApp".equals(entry.getKey()) || "createdBy".equals(entry.getKey())) {
+                target.setOwnerApp((String) entry.getValue());
+                target.setCreatedBy((String) entry.getValue());
+            }
+        }
+    }
+
+    public List<Map<String, Object>> listHistoricalVersionDetails(String workflowName, List<Integer> versions) {
+        List<Map<String, Object>> results = new java.util.ArrayList<>();
+        for (Integer version : versions) {
+            WorkflowDef def = metadataDAO.getWorkflowDef(workflowName, version).orElse(null);
+            Map<String, Object> item = new HashMap<>();
+            item.put("def", def);
+            results.add(item);
+        }
+        return results;
+    }
+
+    public void restoreTaskSnapshotDefinitions(WorkflowDef target, List<com.netflix.conductor.common.metadata.workflow.WorkflowTask> tasks) {
+        target.setTasks(tasks);
+    }
 }

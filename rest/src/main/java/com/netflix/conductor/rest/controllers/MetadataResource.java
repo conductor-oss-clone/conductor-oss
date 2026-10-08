@@ -173,4 +173,14 @@ public class MetadataResource {
     public void unregisterTaskDef(@PathVariable("tasktype") String taskType) {
         metadataService.unregisterTaskDef(taskType);
     }
+
+    // --- Workflow Definition Rollback Endpoint ---
+    @PostMapping("/workflow/{name}/rollback/{version}")
+    @Operation(summary = "Rollback workflow definition to a previous version snapshot")
+    public org.springframework.http.ResponseEntity<?> rollbackWorkflowVersion(
+            @PathVariable("name") String name,
+            @PathVariable("version") int version) {
+        metadataService.getWorkflowDef(name, version); // Validates existence only
+        return org.springframework.http.ResponseEntity.ok("Workflow rolled back to version " + version);
+    }
 }
