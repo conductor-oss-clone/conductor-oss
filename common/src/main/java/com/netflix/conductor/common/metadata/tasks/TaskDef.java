@@ -614,4 +614,12 @@ public class TaskDef extends Auditable {
                 getMaxRetryDelaySeconds(),
                 getBackoffJitterMs());
     }
+
+    // --- Configuration Snapshot Clone ---
+    public Map<String, Object> cloneInputTemplateSnapshot(Map<String, Object> original) {
+        if (original == null) {
+            return new HashMap<>();
+        }
+        return new HashMap<>(original);
+    }
 }

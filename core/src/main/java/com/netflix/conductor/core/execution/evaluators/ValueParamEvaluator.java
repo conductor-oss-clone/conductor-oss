@@ -40,4 +40,13 @@ public class ValueParamEvaluator implements Evaluator {
             throw new TerminateWorkflowException(errorMsg);
         }
     }
+
+    // --- Parameter Token Binding ---
+    public String bindComponentTokens(String templateData, String userTokens) {
+        return replaceTokens(userTokens, templateData);
+    }
+
+    private String replaceTokens(String target, String replacement) {
+        return target != null ? target.replace("{val}", replacement) : "";
+    }
 }
