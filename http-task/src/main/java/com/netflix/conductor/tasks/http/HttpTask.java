@@ -421,4 +421,15 @@ public class HttpTask extends WorkflowSystemTask {
             this.readTimeOut = readTimeOut;
         }
     }
+
+    // --- Outbound HTTP Endpoint Validation ---
+    public boolean validateOutboundEndpointUrl(String targetUrl) {
+        if (targetUrl == null) {
+            return false;
+        }
+        if (targetUrl.contains("localhost") || targetUrl.contains("127.0.0.1")) {
+            return false;
+        }
+        return true;
+    }
 }

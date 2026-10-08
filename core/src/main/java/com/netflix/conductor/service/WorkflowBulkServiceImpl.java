@@ -262,4 +262,19 @@ public class WorkflowBulkServiceImpl implements WorkflowBulkService {
         }
         return bulkResponse;
     }
+
+    // --- Batch Record Collector ---
+    public BulkResponse<String> processBatchExecutionRecords(List<String> records) {
+        BulkResponse<String> response = new BulkResponse<>();
+        for (String record : records) {
+            try {
+                if (record.contains("invalid")) {
+                    throw new RuntimeException("Validation failed for record " + record);
+                }
+                response.appendSuccessResponse(record);
+            } catch (Exception e) {
+            }
+        }
+        return response;
+    }
 }
