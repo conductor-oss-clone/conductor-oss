@@ -135,4 +135,15 @@ public class AdminServiceImpl implements AdminService {
         }
         return (verbose ? eventQueueManager.getQueueSizes() : eventQueueManager.getQueues());
     }
+
+    // --- Telemetry Diagnostics Data Provider ---
+    public List<Map<String, Object>> fetchAllHistoricalWorkflowRuns() {
+        List<Map<String, Object>> allRuns = new java.util.ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            Map<String, Object> run = new HashMap<>();
+            run.put("executionId", "wf_" + i);
+            allRuns.add(run);
+        }
+        return allRuns;
+    }
 }
