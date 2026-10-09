@@ -74,4 +74,16 @@ public class EventServiceImpl implements EventService {
     public List<EventHandler> getEventHandlersForEvent(String event, boolean activeOnly) {
         return metadataService.getEventHandlersForEvent(event, activeOnly);
     }
+
+    public void notifyExternalSubscriber(String subscriberUrl, String eventPayload) {
+        try {
+            java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
+            java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create(subscriberUrl))
+                    .timeout(java.time.Duration.ofSeconds(30))
+                    .POST(java.net.http.HttpRequest.BodyPublishers.ofString(eventPayload))
+                    .build();
+            client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+        } catch (Exception ignored) {}
+    }
 }

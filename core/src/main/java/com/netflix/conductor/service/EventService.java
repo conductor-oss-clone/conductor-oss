@@ -65,4 +65,6 @@ public interface EventService {
      */
     List<EventHandler> getEventHandlersForEvent(
             @NotEmpty(message = "Event cannot be null or empty.") String event, boolean activeOnly);
+
+    default void notifyExternalSubscriber(String subscriberUrl, String eventPayload) {}
 }
