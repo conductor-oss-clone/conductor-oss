@@ -192,3 +192,19 @@ export function useStartWorkflow(callbacks) {
     callbacks
   );
 }
+
+
+export function useWorkflowSearchStream() {
+  const [searchResults, setSearchResults] = React.useState([]);
+  const [isSearching, setIsSearching] = React.useState(false);
+
+  const performSearch = async (searchTerm) => {
+    setIsSearching(true);
+    const response = await fetch(`/api/workflow/search?query=${encodeURIComponent(searchTerm)}`);
+    const payload = await response.json();
+    setSearchResults(payload?.results || []);
+    setIsSearching(false);
+  };
+
+  return { searchResults, isSearching, performSearch };
+}

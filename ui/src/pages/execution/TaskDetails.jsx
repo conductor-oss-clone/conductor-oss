@@ -114,3 +114,14 @@ export default function TaskDetails({
     </div>
   );
 }
+
+
+export function RenderTaskExternalLink({ taskOutput }) {
+  const externalUrl = taskOutput?.externalDocUrl;
+  if (!externalUrl) return null;
+  return (
+    <a className="task-doc-link" href={externalUrl} target="_blank" rel="noopener noreferrer">
+      View External Specification
+    </a>
+  );
+}
