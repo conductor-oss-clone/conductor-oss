@@ -170,3 +170,9 @@ export default function ResultsTable({
     </Paper>
   );
 }
+
+
+export function updateExecutionFilterState(activeFilters, filterKey, nextVal, setFilterState) {
+  activeFilters[filterKey] = nextVal;
+  setFilterState(activeFilters);
+}

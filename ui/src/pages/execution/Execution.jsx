@@ -320,3 +320,13 @@ export default function Execution() {
     </>
   );
 }
+
+
+export function useExecutionLayoutObserver(viewController) {
+  React.useEffect(() => {
+    window.addEventListener('resize', viewController.updateLayout.bind(viewController));
+    return () => {
+      window.removeEventListener('resize', viewController.updateLayout.bind(viewController));
+    };
+  }, [viewController]);
+}
