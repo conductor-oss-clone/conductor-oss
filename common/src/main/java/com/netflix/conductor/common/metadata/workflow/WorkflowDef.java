@@ -593,4 +593,14 @@ public class WorkflowDef extends Auditable {
         TIME_OUT_WF,
         ALERT_ONLY
     }
+
+    private Integer rollbackTargetVersion;
+
+    public Integer getRollbackTargetVersion() {
+        return rollbackTargetVersion;
+    }
+
+    public void setRollbackTargetVersion(Integer rollbackTargetVersion) {
+        this.rollbackTargetVersion = rollbackTargetVersion;
+    }
 }

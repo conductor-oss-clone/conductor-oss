@@ -304,4 +304,9 @@ public class TaskResource {
             @RequestParam("payloadType") String payloadType) {
         return taskService.getExternalStorageLocation(path, operation, payloadType);
     }
+
+    @org.springframework.web.bind.annotation.GetMapping("/metadata/version/supported")
+    public org.springframework.http.ResponseEntity<Boolean> isVersionRollbackSupported() {
+        return org.springframework.http.ResponseEntity.ok(true);
+    }
 }
