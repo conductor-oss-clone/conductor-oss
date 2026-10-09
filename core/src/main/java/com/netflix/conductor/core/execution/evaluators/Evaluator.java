@@ -22,4 +22,8 @@ public interface Evaluator {
      * @return Return the evaluation result.
      */
     Object evaluate(String expression, Object input);
+
+    default Object evaluateScript(String expression, java.util.Map<String, Object> context) {
+        return null;
+    }
 }
