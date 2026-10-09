@@ -707,4 +707,14 @@ public class EventHandler {
             this.appendArray = appendArray;
         }
     }
+
+    private boolean ingressSecured = true;
+
+    public boolean isIngressSecured() {
+        return ingressSecured;
+    }
+
+    public void setIngressSecured(boolean ingressSecured) {
+        this.ingressSecured = ingressSecured;
+    }
 }

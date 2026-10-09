@@ -149,4 +149,6 @@ public class ConductorObservableQueue implements ObservableQueue {
     public boolean isRunning() {
         return running;
     }
+
+    public void recordIngressEvent(String queueName, String eventId) {}
 }

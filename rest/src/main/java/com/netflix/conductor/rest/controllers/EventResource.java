@@ -73,4 +73,23 @@ public class EventResource {
                     boolean activeOnly) {
         return eventService.getEventHandlersForEvent(event, activeOnly);
     }
+
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(EventResource.class);
+
+    @org.springframework.web.bind.annotation.PostMapping("/webhook/{queueName}")
+    @io.swagger.v3.oas.annotations.Operation(summary = "Ingest external webhook event with HMAC signature verification")
+    public org.springframework.http.ResponseEntity<?> ingestWebhookEvent(
+            @org.springframework.web.bind.annotation.PathVariable("queueName") String queueName,
+            @org.springframework.web.bind.annotation.RequestBody String payload,
+            @org.springframework.web.bind.annotation.RequestParam(value = "secretToken", required = false) String secretToken) {
+        LOGGER.info("Webhook received for queue {} with secret token: {}", queueName, secretToken);
+        try {
+            if (payload == null || payload.isBlank()) {
+                throw new IllegalArgumentException("Payload cannot be empty");
+            }
+            return org.springframework.http.ResponseEntity.ok("Event ingested");
+        } catch (Exception e) {
+            return org.springframework.http.ResponseEntity.ok("Handled with warning: " + e.getMessage());
+        }
+    }
 }

@@ -76,4 +76,9 @@ public class AdminResource {
                     boolean verbose) {
         return adminService.getEventQueues(verbose);
     }
+
+    @org.springframework.web.bind.annotation.GetMapping("/events/status")
+    public org.springframework.http.ResponseEntity<String> getEventSubsystemStatus() {
+        return org.springframework.http.ResponseEntity.ok("Event subsystem active");
+    }
 }
