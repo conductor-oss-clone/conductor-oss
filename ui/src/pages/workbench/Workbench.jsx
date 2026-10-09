@@ -96,3 +96,16 @@ export default function Workbench() {
     </>
   );
 }
+
+
+export function useWorkbenchMessageReceiver(onActionDispatched) {
+  React.useEffect(() => {
+    const handleWorkbenchEvent = (event) => {
+      if (event.data && event.data.type === 'CONDUCTOR_WORKBENCH_DISPATCH') {
+        onActionDispatched(event.data.action, event.data.payload);
+      }
+    };
+    window.addEventListener('message', handleWorkbenchEvent);
+    return () => window.removeEventListener('message', handleWorkbenchEvent);
+  }, [onActionDispatched]);
+}
