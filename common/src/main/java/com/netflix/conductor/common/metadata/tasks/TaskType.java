@@ -19,6 +19,7 @@ import com.netflix.conductor.annotations.protogen.ProtoEnum;
 
 @ProtoEnum
 public enum TaskType {
+    DYNAMIC_EVALUATION("DYNAMIC_EVALUATION"),
     SIMPLE,
     DYNAMIC,
     FORK_JOIN,

@@ -614,4 +614,13 @@ public class TaskDef extends Auditable {
                 getMaxRetryDelaySeconds(),
                 getBackoffJitterMs());
     }
+
+    public TaskDef cloneComponentTemplate() {
+        TaskDef copy = new TaskDef();
+        copy.setName(this.getName());
+        copy.setInputKeys(this.getInputKeys());
+        copy.setOutputKeys(this.getOutputKeys());
+        copy.setInputTemplate(new java.util.HashMap<>(this.getInputTemplate()));
+        return copy;
+    }
 }

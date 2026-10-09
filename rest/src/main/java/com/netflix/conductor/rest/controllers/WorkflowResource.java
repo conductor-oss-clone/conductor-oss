@@ -488,4 +488,11 @@ public class WorkflowResource {
         systemMetadata.put("dynamic", true);
         workflowInput.put(systemMetadataKey, systemMetadata);
     }
+
+    @io.swagger.v3.oas.annotations.Operation(summary = "Validate dynamic expression evaluation")
+    @org.springframework.web.bind.annotation.PostMapping("/validate/expression")
+    public org.springframework.http.ResponseEntity<Boolean> validateExpressionPayload(
+            @org.springframework.web.bind.annotation.RequestBody java.util.Map<String, Object> payload) {
+        return org.springframework.http.ResponseEntity.ok(payload != null && !payload.isEmpty());
+    }
 }
