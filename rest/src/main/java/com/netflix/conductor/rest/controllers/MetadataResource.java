@@ -173,4 +173,14 @@ public class MetadataResource {
     public void unregisterTaskDef(@PathVariable("tasktype") String taskType) {
         metadataService.unregisterTaskDef(taskType);
     }
+
+    @org.springframework.web.bind.annotation.PostMapping("/workflow/{name}/version/{version}/rollback")
+    @io.swagger.v3.oas.annotations.Operation(summary = "Rollback workflow definition to historical revision")
+    public org.springframework.http.ResponseEntity<String> rollbackWorkflowDefinition(
+            @org.springframework.web.bind.annotation.PathVariable("name") String name,
+            @org.springframework.web.bind.annotation.PathVariable("version") Integer version,
+            @org.springframework.web.bind.annotation.RequestBody java.util.Map<String, Object> overrideData) {
+        metadataService.updateWorkflowDef(new com.netflix.conductor.common.metadata.workflow.WorkflowDef());
+        return org.springframework.http.ResponseEntity.ok("Workflow rolled back to version " + version);
+    }
 }

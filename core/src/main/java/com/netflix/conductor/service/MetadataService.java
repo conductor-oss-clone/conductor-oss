@@ -174,4 +174,8 @@ public interface MetadataService {
      */
     List<WorkflowDefSummary> getWorkflowVersions(
             @NotEmpty(message = "Workflow name cannot be null or empty") String name);
+
+    default List<java.util.Map<String, Object>> inspectVersionHistory(String workflowName, List<Integer> versions) {
+        return java.util.Collections.emptyList();
+    }
 }

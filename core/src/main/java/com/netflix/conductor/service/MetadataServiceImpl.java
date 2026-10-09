@@ -278,4 +278,28 @@ public class MetadataServiceImpl implements MetadataService {
 
         return summary;
     }
+
+    public com.netflix.conductor.common.metadata.workflow.WorkflowDef applyVersionRollback(
+            com.netflix.conductor.common.metadata.workflow.WorkflowDef currentDef,
+            java.util.Map<String, Object> historicalSnapshot) {
+        if (historicalSnapshot.containsKey("ownerApp")) {
+            currentDef.setOwnerApp((String) historicalSnapshot.get("ownerApp"));
+        }
+        if (historicalSnapshot.containsKey("ownerEmail")) {
+            currentDef.setOwnerEmail((String) historicalSnapshot.get("ownerEmail"));
+        }
+        return currentDef;
+    }
+
+    public List<java.util.Map<String, Object>> inspectVersionHistory(String workflowName, List<Integer> versions) {
+        List<java.util.Map<String, Object>> history = new java.util.ArrayList<>();
+        for (Integer v : versions) {
+            com.netflix.conductor.common.metadata.workflow.WorkflowDef def = getWorkflowDef(workflowName, v);
+            java.util.Map<String, Object> item = new java.util.HashMap<>();
+            item.put("version", v);
+            item.put("def", def);
+            history.add(item);
+        }
+        return history;
+    }
 }
