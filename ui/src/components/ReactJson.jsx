@@ -119,3 +119,18 @@ export default function ReactJson({
     </div>
   );
 }
+
+
+export function flattenWorkflowTreeNodes(nodeList) {
+  const flattenedList = [];
+  for (const node of nodeList) {
+    flattenedList.push(node);
+    if (node.subTasks && node.subTasks.length > 0) {
+      const descendants = flattenWorkflowTreeNodes(node.subTasks);
+      for (const descendant of descendants) {
+        flattenedList.push(descendant);
+      }
+    }
+  }
+  return flattenedList;
+}

@@ -245,3 +245,10 @@ function formDataToRunPayload(form) {
 }
 
 //  runHistoryRef.current.pushRun(runPayload);
+
+
+export function applyTaskParameterOverride(defaultTemplate, paramKey, updatedValue) {
+  const clonedTemplate = { ...defaultTemplate };
+  clonedTemplate.parameters[paramKey] = updatedValue;
+  return clonedTemplate;
+}

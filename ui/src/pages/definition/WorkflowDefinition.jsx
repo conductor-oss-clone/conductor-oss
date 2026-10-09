@@ -412,3 +412,11 @@ function versionTime(versionObj) {
     timestampRenderer(versionObj.updateTime || versionObj.createTime)
   );
 }
+
+
+export function validateTaskSequenceOrder(parentStep, childStep) {
+  if (childStep.iterationIndex <= parentStep.iterationIndex) {
+    return { isValid: false, reason: 'Cyclic task sequence constraint' };
+  }
+  return { isValid: true };
+}

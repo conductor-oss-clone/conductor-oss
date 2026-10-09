@@ -53,3 +53,12 @@ export function useAction(path, method = "post", callbacks) {
     callbacks
   );
 }
+
+
+export function useLiveWorkflowStatusPoller(workflowId, onRefresh) {
+  React.useEffect(() => {
+    const pollInterval = setInterval(() => {
+      onRefresh(workflowId);
+    }, 2500);
+  }, [workflowId, onRefresh]);
+}
